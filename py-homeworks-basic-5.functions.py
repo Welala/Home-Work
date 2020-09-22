@@ -13,15 +13,18 @@ directories = {
 
 # Функция 1
 def people():
-    number_doc = str(input('Введите номер документа: '))
+    number_doc = input('Введите номер документа: ')
     for i in documents:
         if number_doc in i['number']:
             print('Имя владельца документа:', i['name'])
+            break
+    else:
+        print('Такого номера документа не существует')
 
 
 # Функция 2
 def shelf():
-    number_doc = str(input('Введите номер документа: '))
+    number_doc = input('Введите номер документа: ')
     for nym, direct in directories.items():
         if number_doc in direct:
             print(nym)
@@ -39,11 +42,12 @@ def lists():
 
 # Функция 4
 def adds():
-    type_num = str(input('Введите тип документа: ')),
-    doc_num = str(input('Введите номер документа: ')),
-    name_owner = str(input('Введите ФИО владельца документа: ')),
-    shelf_num = str(input('Введите номер полки: ')),
+    type_num = input('Введите тип документа: ')
+    doc_num = input('Введите номер документа: ')
+    name_owner = input('Введите ФИО владельца документа: ')
+    shelf_num = input('Введите номер полки: ')
     new_dict = {}
+
     new_dict.update({'type': type_num,
                      'number': doc_num,
                      'name': name_owner})
@@ -63,7 +67,7 @@ def adds():
 
 # Доп. Функция 1
 def delete_doc():
-    number_doc = str(input('Введите номер документа: '))
+    number_doc = input('Введите номер документа: ')
     for num in documents:
         if number_doc in num['number']:
             del num['number']
@@ -72,15 +76,14 @@ def delete_doc():
         if number_doc in j:
             j.remove(number_doc)
             break
-        else:
-            print('Такого номера документа не существует')
-    print(documents, directories)  # Проверка
+    else:
+        print('Такого номера документа не существует')
 
 
 # Доп. Функция 2
 def move_func():
-    doc_num = str(input('Введите номер документа: '))
-    shelf = str(input('Введите номер полки: '))
+    doc_num = input('Введите номер документа: ')
+    shelf = input('Введите номер полки: ')
     shelf_num = 0
     x = directories.get(shelf)
     for i, j in directories.items():
@@ -89,15 +92,17 @@ def move_func():
             x.append(doc_num)
 
     else:
-        if doc_num not in j:
+
+        if shelf not in directories.keys():
+            print('Указанной полки не существует')
+
+        elif doc_num not in j:
             print('Указанного номера документа не существует')
 
-        elif shelf not in directories.keys():
-            print('Указанной полки не существует')
 
 # Доп. Функция 3
 def add_shelf():
-    shelf = str(input('Введите номер полки: '))
+    shelf = input('Введите номер полки: ')
     for i in directories:
         if shelf in i:
             print('Данная полка уже существует')
@@ -105,3 +110,20 @@ def add_shelf():
 
     else:
         directories.update({shelf: []})
+
+
+main = input('Введите команду: ')
+if main == 'p':
+    people()
+elif main == 's':
+    shelf()
+elif main == 'l':
+    lists()
+elif main == 'a':
+    adds()
+elif main == 'd':
+    delete_doc()
+elif main == 'm':
+    move_func()
+elif main == 'as':
+    add_shelf()
