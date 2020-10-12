@@ -198,7 +198,7 @@ res2.__str__()
 res.__str__()
 
 
-# Задание 2.1
+# Задание 2.2
 class Track:
     name_track = 'Highway to Hell'
     duration_track = int(6)
